@@ -14,6 +14,10 @@ plot3 <- function(cex.legend=.6,
             source("./prepareData.R")
             prepareData()      
       }
+      ## change locale to suppress localized days of week
+      ## see discussion on http://stackoverflow.com/q/5345132/4869831
+      locale <- Sys.getlocale("LC_TIME")
+      Sys.setlocale("LC_TIME","C")
       plot(rep(hpc.table$DateTime,3), 
            c(hpc.table$Sub_metering_1,
              hpc.table$Sub_metering_2,
@@ -38,4 +42,5 @@ plot3 <- function(cex.legend=.6,
       # save to png file --------------------------------------------------
       dev.copy(png, file="./plot3.png")
       dev.off()
+      Sys.setlocale("LC_TIME",locale)
 }
