@@ -58,5 +58,6 @@ prepareData <- function() {
       for (k in 1:7) {
             hpc.table <<- hpc.table[!is.na(hpc.table[k]),]
             hpc.table[[k]] <<- as.numeric(hpc.table[[k]])
-      }   
+      } 
+      hpc.table <<- as.data.table(hpc.table)
 }
