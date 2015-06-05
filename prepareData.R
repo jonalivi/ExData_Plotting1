@@ -60,4 +60,6 @@ prepareData <- function() {
             hpc.table[[k]] <<- as.numeric(hpc.table[[k]])
       } 
       hpc.table <<- as.data.table(hpc.table)
+      ## set a flag saying that data are tidy and ready for plotting
+      dataPrepared <<- TRUE
 }
