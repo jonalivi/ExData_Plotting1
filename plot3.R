@@ -15,7 +15,7 @@ plot3 <- function() {
       ## without reducing font size too much
       ## (see an example code of right-justifying a set of labels
       ## provided in graphics::legend docs)
-      text.width <- strwidth(" Sub_metering_1", cex=0.67)
+      text.width <- strwidth("   Sub_metering_1", cex=0.8)
       box <- legend("topright", legend = c(" "," "," "),
              col=c("black", "red", "blue"), 
              y.intersp=0.7, lty = 1, text.width=text.width,
