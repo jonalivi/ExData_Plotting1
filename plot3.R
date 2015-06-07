@@ -1,12 +1,18 @@
 # plot3 -------------------------------------------------------------------
+## Plots weekdays of observations dates along the x axis and 
+## three datasets energy sub metering along the y axis,
+## Sub_metering_1 in black color, Sub_metering_2 in red,
+## Sub_metering_3 in blue.
 ## These parameter values are well-suited for 480x480 resolution.
 ## Roughly, cex.legend determines the width of the legend box,
 ## while cex.text determines the font size of the labels inside of it.  
 ## (see the example code of right-justifying a set of labels
 ## provided in graphics::legend docs)
+## set pngfile equals to NULL in order not to write to a file
 plot3 <- function(cex.legend=.6, 
                   cex.text=1.3,
-                  bty='o') {
+                  bty='o',
+                  pngfile="./plot3.png") {
       ## download and unpack the data if needed, make a table
       if (!exists("dataPrepared", mode="logical"))
             dataPrepared <<- FALSE
@@ -39,8 +45,10 @@ plot3 <- function(cex.legend=.6,
            c("Sub_metering_1","Sub_metering_2","Sub_metering_3"),
            col="black", adj=c(0,0.5),cex=cex.legend*cex.text)
       
-      # save to png file --------------------------------------------------
-      dev.copy(png, file="./plot3.png")
-      dev.off()
+      # save to png file if needed --------------------------------------------
+      if (!is.null(pngfile)) {
+            dev.copy(png, file=pngfile)
+            dev.off()
+      }
       Sys.setlocale("LC_TIME",locale)
 }
