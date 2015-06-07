@@ -1,6 +1,9 @@
 
 # plot2 -------------------------------------------------------------------
-plot2 <- function() {
+## plots dates and times of observations along the x axis
+## and global active power along the y axis
+## set pngfile equals to NULL in order not to write to a file
+plot2 <- function(pngfile="./plot2.png") {
       ## download and unpack the data if needed, make a table
       if (!exists("dataPrepared", mode="logical"))
             dataPrepared <<- FALSE
@@ -19,8 +22,9 @@ plot2 <- function() {
       lines(hpc.table$DateTime, hpc.table$Global_active_power,
              lty=1)
        
-      # save to png file --------------------------------------------------
-      dev.copy(png, file="./plot2.png")
-      dev.off()
-      Sys.setlocale("LC_TIME",locale)
+      # save to png file if needed --------------------------------------------
+      if (!is.null(pngfile)) {
+            dev.copy(png, file=pngfile)
+            dev.off()
+      }
 }
