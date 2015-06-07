@@ -43,23 +43,22 @@ prepareData <- function() {
       # select and prepare the data --------------------------------------------
       
       ## add a column for Date/Time
-      hpc.table <<- mutate(hpc.table,
-                           DateTime=dmy_hms(
-                                 paste(hpc.table$Date,
-                                       hpc.table$Time, " ")))
+      hpc.table <<- hpc.table %>%
+            mutate(DateTime=dmy_hms(
+                  paste(hpc.table$Date,
+                  hpc.table$Time, " "))) %>%
       # drop Date and Time columns after combining into DateTime
-      hpc.table <<- select(hpc.table, -1, -2)
+      select(-1, -2) %>%
       ## leave only rows with dates from 2007-02-01 to 2007-02-02
-      hpc.table <<- filter(hpc.table, 
-                           as.Date(DateTime) >= "2007-02-01",
-                           as.Date(DateTime) <= "2007-02-02")
+      filter(as.Date(DateTime) >= "2007-02-01",
+            as.Date(DateTime) <= "2007-02-02") %>%
       ## convert all non-date columns to numeric
-      hpc.table <<- as.data.frame(hpc.table)
+      as.data.frame
       for (k in 1:7) {
             hpc.table <<- hpc.table[!is.na(hpc.table[k]),]
             hpc.table[[k]] <<- as.numeric(hpc.table[[k]])
       } 
-      hpc.table <<- as.data.table(hpc.table)
+      hpc.table <<- tbl_df(hpc.table)
       ## set a flag saying that data are tidy and ready for plotting
       dataPrepared <<- TRUE
 }
